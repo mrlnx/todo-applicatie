@@ -1,3 +1,8 @@
+/**
+ *
+ * https://www.baeldung.com/jpa-postgres-persisting-uuids
+ */
+
 package nl.justid.todobackend.entity;
 
 import jakarta.persistence.*;
@@ -18,6 +23,7 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
     @Column(nullable = false)
