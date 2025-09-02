@@ -3,9 +3,9 @@ spring:
   application:
     name: TodoBackend
   datasource:
-    url: jdbc:postgresql://localhost:5434/postgres
-    username: postgres
-    password: admin123
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5434/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin123}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
