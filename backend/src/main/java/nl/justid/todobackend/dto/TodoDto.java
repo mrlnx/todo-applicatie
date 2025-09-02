@@ -1,3 +1,6 @@
+/**
+ * https://www.baeldung.com/java-validation
+ */
 package nl.justid.todobackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,8 +22,8 @@ public class TodoDto {
 
     private UUID id;
 
-    @NotBlank
-    @NotNull
+    @NotBlank()
+    @NotNull(message = "Name cannot be null")
     private String name;
 
     private String description;
