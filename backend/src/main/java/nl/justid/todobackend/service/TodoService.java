@@ -53,8 +53,7 @@ public class TodoService {
         todoRepository.delete((todo));
     }
 
-    private TodoDto mapToDto(Todo todo) {
-
+    public TodoDto mapToDto(Todo todo) {
         TodoDto todoDto = new TodoDto();
         todoDto.setId(todo.getId());
         todoDto.setName(todo.getName());
@@ -62,10 +61,13 @@ public class TodoService {
         todoDto.setTags(todo.getTags());
         todoDto.setDeadline(todo.getDeadline());
         todoDto.setCreatedAt(todo.getCreatedAt());
+        todoDto.setCompleted(
+                todo.isCompleted()
+        );
         return todoDto;
     }
 
-    private Todo mapToEntity(TodoDto todoDto) {
+    public Todo mapToEntity(TodoDto todoDto) {
         Todo todo = new Todo();
         todo.setId(todoDto.getId());
         todo.setName(todoDto.getName());
@@ -73,6 +75,7 @@ public class TodoService {
         todo.setTags(todoDto.getTags());
         todo.setDeadline(todoDto.getDeadline());
         todo.setCreatedAt(todoDto.getCreatedAt());
+        todo.setCompleted(todoDto.isCompleted());
         return todo;
     }
 }

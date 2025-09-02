@@ -18,5 +18,4 @@ public class TodoBackend {
     public ResponseEntity<String> mainRoot() {
         return ResponseEntity.ok("Hello TODO backend applicatie");
     }
-
 }
