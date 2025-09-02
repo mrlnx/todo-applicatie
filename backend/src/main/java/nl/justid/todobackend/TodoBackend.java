@@ -16,7 +16,7 @@ public class TodoBackend {
 
     @RequestMapping("/")
     public ResponseEntity<String> mainRoot() {
-        return ResponseEntity.ok("Hello TODO applicatie");
+        return ResponseEntity.ok("Hello TODO backend applicatie");
     }
 
 }
