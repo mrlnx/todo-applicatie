@@ -4,10 +4,12 @@ package nl.justid.todobackend.service;
 import nl.justid.todobackend.dto.TodoDto;
 import nl.justid.todobackend.entity.Todo;
 import nl.justid.todobackend.repository.TodoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class TodoService {
 
     private final TodoRepository todoRepository;
