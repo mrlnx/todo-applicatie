@@ -55,12 +55,14 @@ export class CreateTodo {
     const tags = this.tags();
     const todo = { ...this.form.value } as Todo;
     const deadline = todo.deadline as string;
+
     let formattedDate = '';
 
-    if (deadline.length > 0) {
+    if (deadline !== '') {
       formattedDate = formatDate(todo.deadline as string, 'yyyy-MM-dd', 'en');
     }
 
+    todo.deadline = formattedDate;
     todo.tags = tags;
 
     this.store.create(todo).subscribe();
