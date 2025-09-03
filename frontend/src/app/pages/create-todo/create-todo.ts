@@ -8,7 +8,7 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TodoStore } from '../../service/todo.store';
 import { Todo } from '../../service/todo.types';
 import { formatDate } from '@angular/common';
@@ -23,6 +23,7 @@ import { formatDate } from '@angular/common';
     MatDatepickerModule,
     MatChipsModule,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './create-todo.html',
   styleUrl: './create-todo.scss',

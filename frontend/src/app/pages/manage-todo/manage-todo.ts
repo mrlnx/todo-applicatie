@@ -5,7 +5,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TodoStore } from '../../service/todo.store';
 import { Todo } from '../../service/todo.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-todo',
-  imports: [MatChipsModule, MatSlideToggleModule, MatButtonModule],
+  imports: [MatChipsModule, MatSlideToggleModule, MatButtonModule, RouterLink],
   templateUrl: './manage-todo.html',
   styleUrl: './manage-todo.scss',
 })
