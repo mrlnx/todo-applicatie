@@ -6,11 +6,10 @@
     gap: 8px;
     align-items: center;
     box-shadow: 0px 0px 5px;
+    justify-content: space-between;
 }
 
-.spacer {
-    flex: 1 1 auto;
-}
+
 
 .branding {
     display: flex;
