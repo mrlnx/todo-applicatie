@@ -1,9 +1,11 @@
 <header class="header">
   <mat-toolbar class="toolbar">
     <div class="branding">
-      <span>Todo applicatie</span>
+      <a [routerLink]="['/']">
+        <span>Todo applicatie</span>
+      </a>
     </div>
     <div class="spacer"></div>
-    <div class="todo-counter">Aantal openstaande todo's: 1</div>
+    <div class="todo-counter">Aantal openstaande todo's: {{ store.count$ | async }}</div>
   </mat-toolbar>
 </header>
