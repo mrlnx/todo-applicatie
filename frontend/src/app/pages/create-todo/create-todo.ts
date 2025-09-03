@@ -12,6 +12,8 @@ import { Router, RouterLink } from '@angular/router';
 import { TodoStore } from '../../service/todo.store';
 import { Todo } from '../../service/todo.types';
 import { formatDate } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Toaster } from '../../components/toaster/toaster';
 
 @Component({
   selector: 'app-create-todo',
@@ -33,7 +35,7 @@ import { formatDate } from '@angular/common';
 export class CreateTodo {
   readonly tags = signal([] as string[]);
   private formBuilder = inject(FormBuilder);
-
+  private _toaster = inject(MatSnackBar);
   constructor(
     private store: TodoStore,
     private router: Router,
@@ -65,8 +67,19 @@ export class CreateTodo {
     todo.deadline = formattedDate;
     todo.tags = tags;
 
+    this.openToaster('Todo successvol aangemaakt!');
+
     this.store.create(todo).subscribe();
     this.router.navigate(['/overview']);
+  }
+
+  openToaster(message: string) {
+    this._toaster.openFromComponent(Toaster, {
+      data: { message },
+      duration: 7000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+    });
   }
 
   removeTag(tag: string) {
