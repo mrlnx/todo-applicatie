@@ -19,4 +19,4 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   jackson:
-    date-format: dd-MM-yyyy
+    date-format: yyyy-MM-dd

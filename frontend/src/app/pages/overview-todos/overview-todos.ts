@@ -1,11 +1,14 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
-
+import { TodoStore } from '../../service/todo.store';
+import { Todo } from '../../service/todo.types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 export interface PeriodicElement {
   complete: boolean;
   name: string;
@@ -13,26 +16,30 @@ export interface PeriodicElement {
   edit: boolean;
 }
 
-const date = new Date().toLocaleDateString('nl-NL').replace(/\//g, '-');
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { complete: true, name: 'Write unit tests', deadline: date, edit: true },
-  { complete: true, name: 'Write e2e tests', deadline: date, edit: true },
-  { complete: true, name: 'Make user stories for dev team', deadline: date, edit: true },
-  { complete: true, name: 'Make user storeis for infra team', deadline: date, edit: true },
-];
-
 @Component({
   selector: 'app-overview-todos',
-  imports: [MatButtonModule, MatTableModule, MatCheckboxModule, MatIconModule, MatSortModule],
+  imports: [
+    MatButtonModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatSortModule,
+    RouterLink,
+  ],
   templateUrl: './overview-todos.html',
   styleUrl: './overview-todos.scss',
 })
-export class OverviewTodos implements AfterViewInit {
+export class OverviewTodos implements AfterViewInit, OnInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   displayedColumns: string[] = ['complete', 'name', 'deadline', 'edit'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Partial<Todo>>();
+
+  constructor(public store: TodoStore) {
+    store.todo$.pipe(takeUntilDestroyed()).subscribe((rows) => {
+      this.dataSource.data = rows ?? [];
+    });
+  }
 
   @ViewChild(MatSort)
   sort: MatSort | undefined;
@@ -41,11 +48,15 @@ export class OverviewTodos implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  ngOnInit(): void {
+    this.store.load();
+  }
+
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      this._liveAnnouncer.announce(`${sortState.direction}ending gesorteerd`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      this._liveAnnouncer.announce('Gesorteerd gewist');
     }
   }
 }
