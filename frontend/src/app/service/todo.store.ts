@@ -24,7 +24,9 @@ export class TodoStore {
   readonly state$ = this.state.asObservable();
 
   readonly todo$ = this.state$.pipe(map((s) => s.ids.map((id) => s.entities[id])));
-  readonly count$ = this.state$.pipe(map((s) => s.ids.length));
+  readonly count$ = this.state$.pipe(
+    map((s) => Object.values(s.entities).filter((todo) => !todo.completed).length)
+  );
   readonly loading$ = this.state$.pipe(map((s) => s.loading));
   readonly error$ = this.state$.pipe(map((s) => s.error));
 
