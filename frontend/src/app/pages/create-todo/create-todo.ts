@@ -53,9 +53,13 @@ export class CreateTodo {
   onSubmit() {
     const tags = this.tags();
     const todo = { ...this.form.value } as Todo;
-    const formattedDate = formatDate(todo.deadline as string, 'yyyy-MM-dd', 'en');
+    const deadline = todo.deadline as string;
+    let formattedDate = '';
 
-    todo.deadline = formattedDate;
+    if (deadline.length > 0) {
+      formattedDate = formatDate(todo.deadline as string, 'yyyy-MM-dd', 'en');
+    }
+
     todo.tags = tags;
 
     this.store.create(todo).subscribe();
