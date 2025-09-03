@@ -1,0 +1,26 @@
+.overview-todo-header {
+    display: flex;
+    flex: 1 1 auto;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 0rem;
+}
+
+.overview-todo-container {
+    border-bottom: 1px solid #CCC;
+
+    .mat-column-complete {
+        width: 4rem;
+        padding-right: 0.5rem;
+    }
+
+    .mat-column-deadline {
+        width: 4rem;
+    }
+
+    .mat-column-edit {
+        text-align: right;
+        width: 4rem;
+        padding-right: 0.5rem;
+    }
+}
+
