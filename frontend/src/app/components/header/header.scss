@@ -26,4 +26,13 @@
 
 .todo-counter {
     font-size: medium;
+
+    .badge {
+        border-radius: 2rem;
+        padding: .5rem .75rem;
+        height: 1rem;
+        background-color: #005cbb;
+        color: #FFF;
+        margin-left: .25rem;
+    }
 }
