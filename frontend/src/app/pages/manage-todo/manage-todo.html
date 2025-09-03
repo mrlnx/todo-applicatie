@@ -1,1 +1,52 @@
-<p>manage-todo works!</p>
+<div class="update-todo-header">
+  <div class="header-title">
+    <h2>Todo managen</h2>
+    <p>Markeer of verwijder je todo</p>
+  </div>
+</div>
+
+<div class="update-todo-container">
+  <div class="todo-display-field">
+    <h3>Titel</h3>
+    <p>Write unit tests</p>
+  </div>
+  <div class="todo-display-field max-width">
+    <h3>Omschrijving</h3>
+    <p>
+      E2E (end-to-end) testing is a software testing methodology that verifies a complete
+      application workflow from start to finish, simulating real-world user interactions to ensure
+      all components and layers.
+    </p>
+  </div>
+  <div class="todo-display-field">
+    <h3>Deadline</h3>
+    <p>11-08-1986</p>
+  </div>
+  <div class="todo-display-field">
+    <h3>Aangemaakt</h3>
+    <p>11-08-1986</p>
+  </div>
+  <div class="todo-display-field separator">
+    <h3>Tags</h3>
+    <div>
+      <mat-chip-set aria-label="Fish selection">
+        <mat-chip>Hoog</mat-chip>
+        <mat-chip>Dev</mat-chip>
+        <mat-chip>Hold</mat-chip>
+      </mat-chip-set>
+    </div>
+  </div>
+  <div class="todo-display-field todo-complete separator">
+    <div>
+      <h3>Voltooien</h3>
+      <p>Hier kun je je todo voltooien</p>
+    </div>
+    <mat-slide-toggle></mat-slide-toggle>
+  </div>
+
+  <div class="alert">
+    <h3>Verwijderen</h3>
+    <p>Als je de todo verwijderd, is er geen weg terug.</p>
+    <button class="delete-btn" matButton="filled">Verwijder todo</button>
+  </div>
+</div>
