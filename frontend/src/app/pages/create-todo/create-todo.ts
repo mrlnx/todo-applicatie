@@ -8,10 +8,12 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TodoStore } from '../../service/todo.store';
 import { Todo } from '../../service/todo.types';
 import { formatDate } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Toaster } from '../../components/toaster/toaster';
 
 @Component({
   selector: 'app-create-todo',
@@ -23,6 +25,7 @@ import { formatDate } from '@angular/common';
     MatDatepickerModule,
     MatChipsModule,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './create-todo.html',
   styleUrl: './create-todo.scss',
@@ -32,7 +35,7 @@ import { formatDate } from '@angular/common';
 export class CreateTodo {
   readonly tags = signal([] as string[]);
   private formBuilder = inject(FormBuilder);
-
+  private _toaster = inject(MatSnackBar);
   constructor(
     private store: TodoStore,
     private router: Router,
@@ -64,8 +67,19 @@ export class CreateTodo {
     todo.deadline = formattedDate;
     todo.tags = tags;
 
+    this.openToaster('Todo successvol aangemaakt!');
+
     this.store.create(todo).subscribe();
     this.router.navigate(['/overview']);
+  }
+
+  openToaster(message: string) {
+    this._toaster.openFromComponent(Toaster, {
+      data: { message },
+      duration: 7000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+    });
   }
 
   removeTag(tag: string) {
@@ -90,5 +104,17 @@ export class CreateTodo {
     }
 
     event.chipInput!.clear();
+  }
+
+  addTagBlur(event: FocusEvent): void {
+    const input = event.target as HTMLInputElement;
+    const value = (input.value || '').trim();
+
+    if (value) {
+      this.tags.update((tags) => [...tags, value]);
+      this.announcer.announce(`Voeg ${value} toe`);
+    }
+
+    input.value = '';
   }
 }

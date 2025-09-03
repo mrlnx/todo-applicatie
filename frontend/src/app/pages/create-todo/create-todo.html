@@ -3,6 +3,9 @@
     <h2>Todo toevoegen</h2>
     <p>Voeg een todo item toe</p>
   </div>
+  <div class="header-action">
+    <a [routerLink]="['/overview']" matButton="outlined">Terug</a>
+  </div>
 </div>
 
 <div class="create-todo-container">
@@ -20,10 +23,10 @@
     <mat-form-field class="form-input-field" appearance="outline">
       <mat-label>Tags</mat-label>
       <mat-chip-grid class="form-chip-grid" #templateChipGrid aria-label="Voeg tag toe">
-        @for (keyword of tags(); track keyword) {
-        <mat-chip-row (removed)="removeTag(keyword)">
-          {{ keyword }}
-          <button matChipRemove [attr.aria-label]="'Verwijder tag ' + keyword">
+        @for (tag of tags(); track tag) {
+        <mat-chip-row (removed)="removeTag(tag)">
+          {{ tag }}
+          <button matChipRemove [attr.aria-label]="'Verwijder tag ' + tag">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
@@ -33,12 +36,20 @@
         placeholder="Tag toevoegen"
         [matChipInputFor]="templateChipGrid"
         (matChipInputTokenEnd)="addTag($event)"
+        (blur)="addTagBlur($event)"
+        autocomplete="off"
       />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-input-field">
       <mat-label>Deadline datum</mat-label>
-      <input readonly matInput [matDatepicker]="picker" formControlName="deadline" />
+      <input
+        style="cursor: pointer"
+        matInput
+        [matDatepicker]="picker"
+        formControlName="deadline"
+        (click)="picker.opened ? picker.close() : picker.open()"
+      />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

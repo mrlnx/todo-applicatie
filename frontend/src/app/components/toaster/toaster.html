@@ -1,0 +1,11 @@
+<span class="toaster">{{ data.message }}</span>
+<span matSnackBarActions>
+  <button
+    class="close-btn"
+    matIconButton="outlined"
+    matSnackBarAction
+    (click)="toasterRef.dismissWithAction()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</span>
