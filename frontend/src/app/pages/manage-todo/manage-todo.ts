@@ -5,7 +5,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, RedirectCommand } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TodoStore } from '../../service/todo.store';
 import { Todo } from '../../service/todo.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -26,6 +26,12 @@ export class ManageTodo implements OnInit {
   deleteTodo(id: Todo['id']): void {
     this.store.remove(id).subscribe();
     this.router.navigate(['/overview']);
+  }
+
+  toggleComplete(id: Todo['id']) {
+    const todo = { ...this.todo };
+    todo.completed = !todo.completed;
+    this.store.update(id, todo).subscribe();
   }
 
   ngOnInit(): void {

@@ -41,7 +41,10 @@
       <h3>Voltooien</h3>
       <p>Hier kun je je todo voltooien</p>
     </div>
-    <mat-slide-toggle></mat-slide-toggle>
+    <mat-slide-toggle
+      (toggleChange)="toggleComplete(todo?.id ?? '')"
+      [checked]="todo?.completed"
+    ></mat-slide-toggle>
   </div>
 
   <div class="alert">
