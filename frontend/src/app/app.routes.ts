@@ -6,7 +6,7 @@ import { ManageTodo } from './pages/manage-todo/manage-todo';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'create',
+    redirectTo: 'overview',
     pathMatch: 'full',
   },
   {
