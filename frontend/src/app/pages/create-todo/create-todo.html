@@ -6,10 +6,10 @@
 </div>
 
 <div class="create-todo-container">
-  <form>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-label>Titel</mat-label>
-      <input matInput formControlName="title" />
+      <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-input-field">
@@ -20,8 +20,8 @@
     <mat-form-field class="form-input-field" appearance="outline">
       <mat-label>Tags</mat-label>
       <mat-chip-grid class="form-chip-grid" #templateChipGrid aria-label="Voeg tag toe">
-        @for (keyword of templateKeywords(); track keyword) {
-        <mat-chip-row (removed)="removeTemplateKeyword(keyword)">
+        @for (keyword of tags(); track keyword) {
+        <mat-chip-row (removed)="removeTag(keyword)">
           {{ keyword }}
           <button matChipRemove [attr.aria-label]="'Verwijder tag ' + keyword">
             <mat-icon>cancel</mat-icon>
@@ -32,18 +32,18 @@
       <input
         placeholder="Tag toevoegen"
         [matChipInputFor]="templateChipGrid"
-        (matChipInputTokenEnd)="addTemplateKeyword($event)"
+        (matChipInputTokenEnd)="addTag($event)"
       />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-input-field">
       <mat-label>Deadline datum</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="deadline" />
+      <input readonly matInput [matDatepicker]="picker" formControlName="deadline" />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <button matButton="filled" type="submit">Opslaan</button>
+    <button matButton="filled" disabled="{{ !form.valid }}" type="submit">Opslaan</button>
   </form>
 </div>
