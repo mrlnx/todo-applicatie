@@ -1,0 +1,49 @@
+<div class="create-todo-header">
+  <div class="header-title">
+    <h2>Todo toevoegen</h2>
+    <p>Voeg een todo item toe</p>
+  </div>
+</div>
+
+<div class="create-todo-container">
+  <form>
+    <mat-form-field appearance="outline">
+      <mat-label>Titel</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-input-field">
+      <mat-label>Omschrijving</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+
+    <mat-form-field class="form-input-field" appearance="outline">
+      <mat-label>Tags</mat-label>
+      <mat-chip-grid class="form-chip-grid" #templateChipGrid aria-label="Voeg tag toe">
+        @for (keyword of templateKeywords(); track keyword) {
+        <mat-chip-row (removed)="removeTemplateKeyword(keyword)">
+          {{ keyword }}
+          <button matChipRemove [attr.aria-label]="'Verwijder tag ' + keyword">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input
+        placeholder="Tag toevoegen"
+        [matChipInputFor]="templateChipGrid"
+        (matChipInputTokenEnd)="addTemplateKeyword($event)"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-input-field">
+      <mat-label>Deadline datum</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="deadline" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button matButton="filled" type="submit">Opslaan</button>
+  </form>
+</div>

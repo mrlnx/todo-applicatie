@@ -1,0 +1,15 @@
+.create-todo-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 2rem;
+}
+
+.create-todo-container {
+    form {
+        max-width: 28rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
