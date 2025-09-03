@@ -105,4 +105,16 @@ export class CreateTodo {
 
     event.chipInput!.clear();
   }
+
+  addTagBlur(event: FocusEvent): void {
+    const input = event.target as HTMLInputElement;
+    const value = (input.value || '').trim();
+
+    if (value) {
+      this.tags.update((tags) => [...tags, value]);
+      this.announcer.announce(`Voeg ${value} toe`);
+    }
+
+    input.value = '';
+  }
 }
