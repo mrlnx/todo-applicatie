@@ -35,5 +35,22 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { 
+  height: 100%; 
+  font-size: 1rem; 
+  line-height: 1.6
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.form-input-field {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.form-button {
+  margin-bottom: 1rem;
+}
+
+.form-chip-grid {
+  margin-bottom: .5rem;
+}
