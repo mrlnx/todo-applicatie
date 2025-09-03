@@ -28,6 +28,10 @@ export class TodoStore {
   readonly loading$ = this.state$.pipe(map((s) => s.loading));
   readonly error$ = this.state$.pipe(map((s) => s.error));
 
+  todoById$(id: Todo['id']) {
+    return this.state$.pipe(map((s) => s.entities[id]));
+  }
+
   // helpers
   private set(s: State) {
     this.state.next(s);
@@ -65,10 +69,6 @@ export class TodoStore {
     this.set({ ...state, entities, ids: state.ids.filter((id) => !idsToRemove.includes(id)) });
   }
 
-  todoById(id: Todo['id']) {
-    return this.state$.pipe(map((s) => s.entities[id]));
-  }
-
   load() {
     this.patch({ loading: true, error: null });
 
@@ -83,6 +83,19 @@ export class TodoStore {
         finalize(() => this.patch({ loading: false }))
       )
       .subscribe();
+  }
+
+  loadById(id: Todo['id']) {
+    this.patch({ loading: true, error: null });
+    if (this.state.value.entities[id]) return;
+    this.service.get(id).pipe(
+      tap((t) => this.upsert([t])),
+      catchError((err) => {
+        this.patch({ error: 'Failed' });
+        throw err;
+      }),
+      finalize(() => this.patch({ loading: false }))
+    );
   }
 
   create(todo: CreateTodo) {
